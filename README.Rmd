@@ -16,39 +16,54 @@ knitr::opts_chunk$set(
 # waysign
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/thomasp85/waysign/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/thomasp85/waysign/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/thomasp85/waysign/graph/badge.svg)](https://app.codecov.io/gh/thomasp85/waysign)
 <!-- badges: end -->
 
-The goal of waysign is to ...
+waysign is a multipurpose, high-performance router build on top of the [path-tree](https://github.com/viz-rs/path-tree) library. A router associates filepath-like patterns with a piece of data for latter retrieval. Often that data is a function and the path to be matched against the pattern comes from a URL, but it can be anything, adapting to the need of the user.
 
 ## Installation
 
 You can install the development version of waysign like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+pak::pak("thomasp85/waysign")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Adapted from the [path-tree](https://docs.rs/path-tree/0.8.3/path_tree/) docs
 
-```{r example}
+```{r}
 library(waysign)
-## basic example code
+
+router <- Waysign$new()
+
+router$add_path("/", 1)
+router$add_path("/login", 2)
+router$add_path("/signup", 3)
+router$add_path("/settings", 4)
+router$add_path("/settings/:page", 5)
+router$add_path("/:user", 6)
+router$add_path("/:user/:repo", 7)
+router$add_path("/public/:any*", 8)
+router$add_path("/:org/:repo/releases/download/:tag/:filename.:ext", 9)
+router$add_path("/:org/:repo/tags/:day-:month-:year", 10)
+router$add_path("/:org/:repo/actions/:name\\::verb", 11)
+router$add_path("/:org/:repo/:page", 12)
+router$add_path("/:org/:repo/*", 13)
+router$add_path("/api/+", 14)
+
+router$find_object("/")
+router$find_object("/login")
+router$find_object("/settings/admin")
+router$find_object("/viz-rs")
+router$find_object("/viz-rs/path-tree")
+router$find_object("/rust-lang/rust-analyzer/releases/download/2022-09-12/rust-analyzer-aarch64-apple-darwin.gz")
+router$find_object("/rust-lang/rust-analyzer/tags/2022-09-12")
+router$find_object("/rust-lang/rust-analyzer/actions/ci:bench")
+router$find_object("/rust-lang/rust-analyzer/stargazers")
+router$find_object("/rust-lang/rust-analyzer/stargazers/404")
+router$find_object("/public/js/main.js")
+router$find_object("/api/v1")
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.

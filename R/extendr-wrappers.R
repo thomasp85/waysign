@@ -18,5 +18,7 @@ router_add_path <- function(router, path, id) invisible(.Call(wrap__router_add_p
 
 router_find_handler <- function(router, path) .Call(wrap__router_find_handler, router, path)
 
+count_paths <- function(router) .Call(wrap__count_paths, router)
+
 
 # nolint end

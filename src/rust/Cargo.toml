@@ -11,7 +11,7 @@ name = 'waysign'
 
 [dependencies]
 extendr-api = '0.8.1'
-path-tree = '0.8'
+path-tree = '0.8.3'
 
 [profile.release]
 lto = true

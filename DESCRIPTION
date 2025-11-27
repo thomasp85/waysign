@@ -1,18 +1,25 @@
 Package: waysign
-Title: What the Package Does (One Line, Title Case)
+Title: Multi-Purpose and High-Performance Routing
 Version: 0.0.0.9000
-Authors@R: 
+Authors@R:
     person("Thomas Lin", "Pedersen", , "thomasp85@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-5147-4711"))
-Description: What the package does (one paragraph).
+Description: provides routing based on the 'path-tree' Rust crate. The routing
+    is general purpose in the sense that any type of R object can be associated
+    with a path, not just a handler function.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Config/rextendr/version: 0.4.2.9000
 SystemRequirements: Cargo (Rust's package manager), rustc >= 1.65.0, xz
-Depends: 
+Depends:
     R (>= 4.2)
-Suggests: 
+Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Imports:
+    R6,
+    rlang (>= 1.1.0)
+URL: https://github.com/thomasp85/waysign
+BugReports: https://github.com/thomasp85/waysign/issues
