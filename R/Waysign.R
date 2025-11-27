@@ -59,7 +59,7 @@
 #' router$find_object("/rust-lang/rust-analyzer/stargazers/404")
 #' router$find_object("/public/js/main.js")
 #' router$find_object("/api/v1")
-#' 
+#'
 Waysign <- R6Class(
   "Waysign",
   public = list(
@@ -136,7 +136,7 @@ Waysign <- R6Class(
         private$PATHS <- list()
         paths <- paths[-path_match]
         for (p in paths) {
-          self$add_handler(p$path, p$object)
+          self$add_path(p$path, p$object)
         }
       }
       invisible(self)
