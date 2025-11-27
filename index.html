@@ -83,9 +83,7 @@
 </h2>
 <p>Adapted from the <a href="https://docs.rs/path-tree/0.8.3/path_tree/" class="external-link">path-tree</a> docs</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thomasp85/waysign" class="external-link">waysign</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">router</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Waysign.html">Waysign</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">router</span> <span class="op">&lt;-</span> <span class="fu">waysign</span><span class="fu">::</span><span class="fu"><a href="reference/signpost.html">signpost</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">add_path</span><span class="op">(</span><span class="st">"/"</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">add_path</span><span class="op">(</span><span class="st">"/login"</span>, <span class="fl">2</span><span class="op">)</span></span>
@@ -110,7 +108,7 @@
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt; named character(0)</span></span>
+<span><span class="co">#&gt; named list()</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/login"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/login"</span></span>
@@ -119,7 +117,7 @@
 <span><span class="co">#&gt; [1] 2</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt; named character(0)</span></span>
+<span><span class="co">#&gt; named list()</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/settings/admin"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/settings/:page"</span></span>
@@ -128,8 +126,8 @@
 <span><span class="co">#&gt; [1] 5</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;    page </span></span>
-<span><span class="co">#&gt; "admin"</span></span>
+<span><span class="co">#&gt; $params$page</span></span>
+<span><span class="co">#&gt; [1] "admin"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/viz-rs"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/:user"</span></span>
@@ -138,8 +136,8 @@
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;     user </span></span>
-<span><span class="co">#&gt; "viz-rs"</span></span>
+<span><span class="co">#&gt; $params$user</span></span>
+<span><span class="co">#&gt; [1] "viz-rs"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/viz-rs/path-tree"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/:user/:repo"</span></span>
@@ -148,8 +146,11 @@
 <span><span class="co">#&gt; [1] 7</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;        user        repo </span></span>
-<span><span class="co">#&gt;    "viz-rs" "path-tree"</span></span>
+<span><span class="co">#&gt; $params$user</span></span>
+<span><span class="co">#&gt; [1] "viz-rs"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$repo</span></span>
+<span><span class="co">#&gt; [1] "path-tree"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/rust-lang/rust-analyzer/releases/download/2022-09-12/rust-analyzer-aarch64-apple-darwin.gz"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/:org/:repo/releases/download/:tag/:filename.:ext"</span></span>
@@ -158,12 +159,20 @@
 <span><span class="co">#&gt; [1] 9</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;                                  org                                 repo </span></span>
-<span><span class="co">#&gt;                          "rust-lang"                      "rust-analyzer" </span></span>
-<span><span class="co">#&gt;                                  tag                             filename </span></span>
-<span><span class="co">#&gt;                         "2022-09-12" "rust-analyzer-aarch64-apple-darwin" </span></span>
-<span><span class="co">#&gt;                                  ext </span></span>
-<span><span class="co">#&gt;                                 "gz"</span></span>
+<span><span class="co">#&gt; $params$org</span></span>
+<span><span class="co">#&gt; [1] "rust-lang"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$repo</span></span>
+<span><span class="co">#&gt; [1] "rust-analyzer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$tag</span></span>
+<span><span class="co">#&gt; [1] "2022-09-12"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$filename</span></span>
+<span><span class="co">#&gt; [1] "rust-analyzer-aarch64-apple-darwin"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$ext</span></span>
+<span><span class="co">#&gt; [1] "gz"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/rust-lang/rust-analyzer/tags/2022-09-12"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/:org/:repo/tags/:day-:month-:year"</span></span>
@@ -172,8 +181,20 @@
 <span><span class="co">#&gt; [1] 10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;             org            repo             day           month            year </span></span>
-<span><span class="co">#&gt;     "rust-lang" "rust-analyzer"          "2022"            "09"            "12"</span></span>
+<span><span class="co">#&gt; $params$org</span></span>
+<span><span class="co">#&gt; [1] "rust-lang"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$repo</span></span>
+<span><span class="co">#&gt; [1] "rust-analyzer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$day</span></span>
+<span><span class="co">#&gt; [1] "2022"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$month</span></span>
+<span><span class="co">#&gt; [1] "09"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$year</span></span>
+<span><span class="co">#&gt; [1] "12"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/rust-lang/rust-analyzer/actions/ci:bench"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/:org/:repo/actions/:name\\::verb"</span></span>
@@ -182,8 +203,17 @@
 <span><span class="co">#&gt; [1] 11</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;             org            repo            name            verb </span></span>
-<span><span class="co">#&gt;     "rust-lang" "rust-analyzer"            "ci"         "bench"</span></span>
+<span><span class="co">#&gt; $params$org</span></span>
+<span><span class="co">#&gt; [1] "rust-lang"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$repo</span></span>
+<span><span class="co">#&gt; [1] "rust-analyzer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$name</span></span>
+<span><span class="co">#&gt; [1] "ci"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$verb</span></span>
+<span><span class="co">#&gt; [1] "bench"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/rust-lang/rust-analyzer/stargazers"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/:org/:repo/:page"</span></span>
@@ -192,8 +222,14 @@
 <span><span class="co">#&gt; [1] 12</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;             org            repo            page </span></span>
-<span><span class="co">#&gt;     "rust-lang" "rust-analyzer"    "stargazers"</span></span>
+<span><span class="co">#&gt; $params$org</span></span>
+<span><span class="co">#&gt; [1] "rust-lang"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$repo</span></span>
+<span><span class="co">#&gt; [1] "rust-analyzer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$page</span></span>
+<span><span class="co">#&gt; [1] "stargazers"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/rust-lang/rust-analyzer/stargazers/404"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/:org/:repo/*"</span></span>
@@ -202,8 +238,14 @@
 <span><span class="co">#&gt; [1] 13</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;              org             repo               *1 </span></span>
-<span><span class="co">#&gt;      "rust-lang"  "rust-analyzer" "stargazers/404"</span></span>
+<span><span class="co">#&gt; $params$org</span></span>
+<span><span class="co">#&gt; [1] "rust-lang"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$repo</span></span>
+<span><span class="co">#&gt; [1] "rust-analyzer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params$`*1`</span></span>
+<span><span class="co">#&gt; [1] "stargazers/404"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/public/js/main.js"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/public/:any*"</span></span>
@@ -212,8 +254,8 @@
 <span><span class="co">#&gt; [1] 8</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;          any </span></span>
-<span><span class="co">#&gt; "js/main.js"</span></span>
+<span><span class="co">#&gt; $params$any</span></span>
+<span><span class="co">#&gt; [1] "js/main.js"</span></span>
 <span><span class="va">router</span><span class="op">$</span><span class="fu">find_object</span><span class="op">(</span><span class="st">"/api/v1"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $path</span></span>
 <span><span class="co">#&gt; [1] "/api/+"</span></span>
@@ -222,8 +264,8 @@
 <span><span class="co">#&gt; [1] 14</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $params</span></span>
-<span><span class="co">#&gt;   +1 </span></span>
-<span><span class="co">#&gt; "v1"</span></span></code></pre></div>
+<span><span class="co">#&gt; $params$`+1`</span></span>
+<span><span class="co">#&gt; [1] "v1"</span></span></code></pre></div>
 </div>
 </div>
   </div>
