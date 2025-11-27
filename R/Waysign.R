@@ -52,7 +52,6 @@
 #' router$find_object("/settings/admin")
 #' router$find_object("/viz-rs")
 #' router$find_object("/viz-rs/path-tree")
-#' router$find_object("/rust-lang/rust-analyzer/releases/download/2022-09-12/rust-analyzer-aarch64-apple-darwin.gz")
 #' router$find_object("/rust-lang/rust-analyzer/tags/2022-09-12")
 #' router$find_object("/rust-lang/rust-analyzer/actions/ci:bench")
 #' router$find_object("/rust-lang/rust-analyzer/stargazers")
