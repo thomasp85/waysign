@@ -1,5 +1,5 @@
 test_that("path matching works", {
-  router <- Waysign$new()
+  router <- signpost()
 
   router$add_path("/", 1)
   router$add_path("/login", 2)
@@ -59,7 +59,7 @@ test_that("path matching works", {
 
   router$remove_path("/")
   expect_null(router$find_object("/"))
-  
+
   match <- router$find_object("/login")
   expect_equal(match$object, 2)
 })

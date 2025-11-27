@@ -31,9 +31,7 @@ Adapted from the [path-tree](https://docs.rs/path-tree/0.8.3/path_tree/)
 docs
 
 ``` r
-library(waysign)
-
-router <- Waysign$new()
+router <- waysign::signpost()
 
 router$add_path("/", 1)
 router$add_path("/login", 2)
@@ -58,7 +56,7 @@ router$find_object("/")
 #> [1] 1
 #> 
 #> $params
-#> named character(0)
+#> named list()
 router$find_object("/login")
 #> $path
 #> [1] "/login"
@@ -67,7 +65,7 @@ router$find_object("/login")
 #> [1] 2
 #> 
 #> $params
-#> named character(0)
+#> named list()
 router$find_object("/settings/admin")
 #> $path
 #> [1] "/settings/:page"
@@ -76,8 +74,8 @@ router$find_object("/settings/admin")
 #> [1] 5
 #> 
 #> $params
-#>    page 
-#> "admin"
+#> $params$page
+#> [1] "admin"
 router$find_object("/viz-rs")
 #> $path
 #> [1] "/:user"
@@ -86,8 +84,8 @@ router$find_object("/viz-rs")
 #> [1] 6
 #> 
 #> $params
-#>     user 
-#> "viz-rs"
+#> $params$user
+#> [1] "viz-rs"
 router$find_object("/viz-rs/path-tree")
 #> $path
 #> [1] "/:user/:repo"
@@ -96,8 +94,11 @@ router$find_object("/viz-rs/path-tree")
 #> [1] 7
 #> 
 #> $params
-#>        user        repo 
-#>    "viz-rs" "path-tree"
+#> $params$user
+#> [1] "viz-rs"
+#> 
+#> $params$repo
+#> [1] "path-tree"
 router$find_object("/rust-lang/rust-analyzer/releases/download/2022-09-12/rust-analyzer-aarch64-apple-darwin.gz")
 #> $path
 #> [1] "/:org/:repo/releases/download/:tag/:filename.:ext"
@@ -106,12 +107,20 @@ router$find_object("/rust-lang/rust-analyzer/releases/download/2022-09-12/rust-a
 #> [1] 9
 #> 
 #> $params
-#>                                  org                                 repo 
-#>                          "rust-lang"                      "rust-analyzer" 
-#>                                  tag                             filename 
-#>                         "2022-09-12" "rust-analyzer-aarch64-apple-darwin" 
-#>                                  ext 
-#>                                 "gz"
+#> $params$org
+#> [1] "rust-lang"
+#> 
+#> $params$repo
+#> [1] "rust-analyzer"
+#> 
+#> $params$tag
+#> [1] "2022-09-12"
+#> 
+#> $params$filename
+#> [1] "rust-analyzer-aarch64-apple-darwin"
+#> 
+#> $params$ext
+#> [1] "gz"
 router$find_object("/rust-lang/rust-analyzer/tags/2022-09-12")
 #> $path
 #> [1] "/:org/:repo/tags/:day-:month-:year"
@@ -120,8 +129,20 @@ router$find_object("/rust-lang/rust-analyzer/tags/2022-09-12")
 #> [1] 10
 #> 
 #> $params
-#>             org            repo             day           month            year 
-#>     "rust-lang" "rust-analyzer"          "2022"            "09"            "12"
+#> $params$org
+#> [1] "rust-lang"
+#> 
+#> $params$repo
+#> [1] "rust-analyzer"
+#> 
+#> $params$day
+#> [1] "2022"
+#> 
+#> $params$month
+#> [1] "09"
+#> 
+#> $params$year
+#> [1] "12"
 router$find_object("/rust-lang/rust-analyzer/actions/ci:bench")
 #> $path
 #> [1] "/:org/:repo/actions/:name\\::verb"
@@ -130,8 +151,17 @@ router$find_object("/rust-lang/rust-analyzer/actions/ci:bench")
 #> [1] 11
 #> 
 #> $params
-#>             org            repo            name            verb 
-#>     "rust-lang" "rust-analyzer"            "ci"         "bench"
+#> $params$org
+#> [1] "rust-lang"
+#> 
+#> $params$repo
+#> [1] "rust-analyzer"
+#> 
+#> $params$name
+#> [1] "ci"
+#> 
+#> $params$verb
+#> [1] "bench"
 router$find_object("/rust-lang/rust-analyzer/stargazers")
 #> $path
 #> [1] "/:org/:repo/:page"
@@ -140,8 +170,14 @@ router$find_object("/rust-lang/rust-analyzer/stargazers")
 #> [1] 12
 #> 
 #> $params
-#>             org            repo            page 
-#>     "rust-lang" "rust-analyzer"    "stargazers"
+#> $params$org
+#> [1] "rust-lang"
+#> 
+#> $params$repo
+#> [1] "rust-analyzer"
+#> 
+#> $params$page
+#> [1] "stargazers"
 router$find_object("/rust-lang/rust-analyzer/stargazers/404")
 #> $path
 #> [1] "/:org/:repo/*"
@@ -150,8 +186,14 @@ router$find_object("/rust-lang/rust-analyzer/stargazers/404")
 #> [1] 13
 #> 
 #> $params
-#>              org             repo               *1 
-#>      "rust-lang"  "rust-analyzer" "stargazers/404"
+#> $params$org
+#> [1] "rust-lang"
+#> 
+#> $params$repo
+#> [1] "rust-analyzer"
+#> 
+#> $params$`*1`
+#> [1] "stargazers/404"
 router$find_object("/public/js/main.js")
 #> $path
 #> [1] "/public/:any*"
@@ -160,8 +202,8 @@ router$find_object("/public/js/main.js")
 #> [1] 8
 #> 
 #> $params
-#>          any 
-#> "js/main.js"
+#> $params$any
+#> [1] "js/main.js"
 router$find_object("/api/v1")
 #> $path
 #> [1] "/api/+"
@@ -170,6 +212,6 @@ router$find_object("/api/v1")
 #> [1] 14
 #> 
 #> $params
-#>   +1 
-#> "v1"
+#> $params$`+1`
+#> [1] "v1"
 ```

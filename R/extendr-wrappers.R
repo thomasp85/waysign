@@ -20,5 +20,22 @@ router_find_handler <- function(router, path) .Call(wrap__router_find_handler, r
 
 count_paths <- function(router) .Call(wrap__count_paths, router)
 
+#' Deconstruct a path pattern
+#'
+#' This function parses a path pattern and returns both the name of the
+#' parameters and a version of the path formatted for glue string
+#' interpolation.
+#'
+#' @param path The path pattern to parse
+#'
+#' @return A list with the elements `keys` containing the names of all the path
+#' parameters and `glue` containing a glue ready version of the path
+#'
+#' @export
+#'
+#' @examples
+#' path_params("/users/:user/assets/*")
+path_params <- function(path) .Call(wrap__path_params, path)
+
 
 # nolint end

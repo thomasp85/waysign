@@ -35,9 +35,7 @@ pak::pak("thomasp85/waysign")
 Adapted from the [path-tree](https://docs.rs/path-tree/0.8.3/path_tree/) docs
 
 ```{r}
-library(waysign)
-
-router <- Waysign$new()
+router <- waysign::signpost()
 
 router$add_path("/", 1)
 router$add_path("/login", 2)
