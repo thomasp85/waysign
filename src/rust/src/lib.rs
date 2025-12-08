@@ -87,7 +87,7 @@ fn path_params(path: &str) -> Robj {
                 }
             },
             Piece::String(str) => {
-                glue.push_str(str::from_utf8(str).unwrap());
+                glue.push_str(std::str::from_utf8(str).unwrap());
             }
         }
     }

@@ -19,7 +19,9 @@ to the need of the user.
 
 ## Installation
 
-You can install the development version of waysign like so:
+You can install the release version of waysign with
+`install.packages("waysign")`. If you want the development version you
+can install from github using pak:
 
 ``` r
 pak::pak("thomasp85/waysign")

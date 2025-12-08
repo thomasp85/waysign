@@ -11,3 +11,4 @@
 ^LICENSE\.md$
 ^[.]?air[.]toml$
 ^codecov\.yml$
+^cran-comments\.md$

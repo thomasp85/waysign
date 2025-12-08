@@ -6,7 +6,7 @@
 \alias{waysign-package}
 \title{waysign: Multi-Purpose and High-Performance Routing}
 \description{
-provides routing based on the 'path-tree' Rust crate. The routing is general purpose in the sense that any type of R object can be associated with a path, not just a handler function.
+Provides routing based on the 'path-tree' 'Rust' crate. The routing is general purpose in the sense that any type of R object can be associated with a path, not just a handler function.
 }
 \seealso{
 Useful links:
@@ -17,7 +17,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Thomas Lin Pedersen \email{thomasp85@gmail.com} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
+\strong{Maintainer}: Thomas Lin Pedersen \email{thomas.pedersen@posit.co} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Posit, PBC (\href{https://ror.org/03wc8by49}{ROR}) [copyright holder, funder]
+}
 
 }
 \keyword{internal}
