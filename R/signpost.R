@@ -114,16 +114,25 @@ signpost <- function() {
 
   obj <- structure(
     list(),
-    class = "waysign_signpost",
-    format = function(...) {
-      paste0(
-        "<Waysign router with ",
-        count_paths(ROUTER),
-        " routes>\n\n",
-        format_router(ROUTER)
-      )
-    }
+    class = "waysign_signpost"
   )
+  reconstruct_obj <- function() {
+    if (format(ROUTER) == "<pointer: 0x0>") {
+      ROUTER <<- create_router()
+      for (p in names(PATHS)) {
+        obj$add_path(p, paths[[p]])
+      }
+    }
+  }
+  attr(obj, "format") <- function(...) {
+    reconstruct_obj()
+    paste0(
+      "<Waysign router with ",
+      count_paths(ROUTER),
+      " routes>\n\n",
+      format_router(ROUTER)
+    )
+  }
 
   obj$paths <- function() PATHS
   obj$has_path <- function(path) path %in% names(PATHS)
@@ -143,6 +152,7 @@ signpost <- function() {
     invisible(obj)
   }
   obj$find_object <- function(path) {
+    reconstruct_obj()
     check_string(path)
     res <- router_find_handler(ROUTER, path)
     if (is.null(res)) {
@@ -155,6 +165,7 @@ signpost <- function() {
     )
   }
   obj$add_path <- function(path, object) {
+    reconstruct_obj()
     check_string(path)
     router_add_path(ROUTER, path, path)
     PATHS[[path]] <<- object
