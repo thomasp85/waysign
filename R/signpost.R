@@ -120,7 +120,7 @@ signpost <- function() {
     if (grepl("0x0", format(ROUTER), fixed = TRUE)) {
       ROUTER <<- create_router()
       for (p in names(PATHS)) {
-        obj$add_path(p, paths[[p]])
+        obj$add_path(p, PATHS[[p]])
       }
     }
   }
