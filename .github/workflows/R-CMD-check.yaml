@@ -63,4 +63,4 @@ jobs:
 
       - uses: r-hub/actions/debug-shell@v1
         with:
-        connect-timeout-seconds: '300'
+          connect-timeout-seconds: '300'
