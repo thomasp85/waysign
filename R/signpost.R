@@ -117,7 +117,7 @@ signpost <- function() {
     class = "waysign_signpost"
   )
   reconstruct_obj <- function() {
-    if (format(ROUTER) == "<pointer: 0x0>") {
+    if (grepl("0x0", format(ROUTER), fixed = TRUE)) {
       ROUTER <<- create_router()
       for (p in names(PATHS)) {
         obj$add_path(p, paths[[p]])
