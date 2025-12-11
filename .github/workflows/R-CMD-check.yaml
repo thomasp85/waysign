@@ -60,3 +60,7 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+      - uses: r-hub/actions/debug-shell@v1
+        with:
+        connect-timeout-seconds: '300'
