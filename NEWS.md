@@ -1,4 +1,4 @@
-# waysign (development version)
+# waysign 0.1.1
 
 * `signpost` objects now properly restores themselves when passed between
   processes
