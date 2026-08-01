@@ -10,7 +10,7 @@ crate-type = [ 'staticlib' ]
 name = 'waysign'
 
 [dependencies]
-extendr-api = '0.8.1'
+extendr-api = '0.8.2'
 path-tree = '=0.8.1'
 
 [profile.release]

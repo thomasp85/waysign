@@ -26,6 +26,7 @@ jobs:
           - {os: macos-latest,   r: 'release'}
 
           - {os: windows-latest, r: 'release'}
+          - {os: windows-11-arm, r: 'release'}
           # use 4.0 or 4.1 to check with rtools40's older compiler
           #- {os: windows-latest, r: 'oldrel-4'}
 
@@ -42,6 +43,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - if: ${{ runner.os == 'windows' && runner.arch == 'ARM64' }}
+        run: rustup target add aarch64-pc-windows-gnullvm
 
       - uses: r-lib/actions/setup-pandoc@v2
 
